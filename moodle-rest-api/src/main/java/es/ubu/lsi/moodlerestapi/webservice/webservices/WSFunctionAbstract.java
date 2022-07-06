@@ -31,7 +31,11 @@ public abstract class WSFunctionAbstract implements WSFunction {
 	public void addToMapParemeters() {
 		//default do nothing
 	}
-	
-	
-	
+
+	public void putIfNotNull(String key, Object value) {
+		if (value != null) {
+			parameters.put(key, value);
+		}
+	}
+
 }
