@@ -9,6 +9,8 @@ import okhttp3.Response;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.Iterator;
@@ -16,6 +18,7 @@ import java.util.Map;
 
 public class WebService {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(WebService.class);
     public static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
     private String moodleWSRestFormat = "json";
     private String hostWithWS;
@@ -118,7 +121,10 @@ public class WebService {
 
         builder.post(formBody.build());
 
-        return Connection.getResponse(builder.build());
+        Request build = builder.build();
+        String url = build.url().toString();
+        LOGGER.debug("Final url: {}", url);
+        return Connection.getResponse(build);
 
     }
 
